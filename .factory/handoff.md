@@ -42,7 +42,14 @@ npm audit --omit=dev --json
 
 ## Deployment and live verification
 
-The static deploy root remains `dist/site/`; the artifact class remains a WXT TypeScript MV3 browser extension with a static landing site. The factory deployment command is `npm ci && npm test && npm run build:site`, followed by the static publish of `dist/site/`; it now includes the ZIP instead of deploying a site whose download URL has no file. After the push, verify the live `/downloads/reading-resume-chrome.zip` is `200`, has a ZIP content type and `PK` header, and that the declared response headers are applied by the host.
+Deployed `dist/site/` with `/opt/fleet/lib/deploy-static.sh dyslexia-reading-resume dist/site` on 2026-08-28. Azure Static Web Apps deployment `fdc216c2-59c6-4f7c-afdb-8339c9b07498` completed successfully and the custom domain was `Ready`.
+
+- Live `/` SHA-256 is `cc529246c2cd8ba57db13c4a47c6b9e776c97e2d31076814c4a9112d8aa00126`, exactly matching `dist/site/index.html`.
+- Live `/downloads/reading-resume-chrome.zip` is `200 application/zip`, 23,311 bytes, and begins `50 4b 03 04` (`PK`), so the public installation CTA now serves the extension package.
+- Live HTML uses `Cache-Control: public, max-age=0, must-revalidate`; hashed JS uses `public, max-age=31536000, immutable`; `/sw.js` uses `no-cache`. CSP, Permissions-Policy, `X-Frame-Options: DENY`, nosniff, and strict referrer policy are present.
+- The factory URL verifier found the live title/lang/H1/main/alt baseline and no console errors. A live 390px Playwright axe scan of `/`, `/privacy/`, and `/terms/` found zero serious or critical violations and no page/console errors.
+
+The artifact remains a WXT TypeScript MV3 browser extension with a static landing site. The factory deployment command is `npm ci && npm test && npm run build:site`, followed by the static publish of `dist/site/`; it now includes the ZIP instead of deploying a site whose download URL has no file.
 
 ## Known limitations
 
