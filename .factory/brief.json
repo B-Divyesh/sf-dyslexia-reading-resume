@@ -1,0 +1,12 @@
+{
+  "slug": "dyslexia-reading-resume",
+  "title": "Reading Resume",
+  "territory": "utilities",
+  "user": "Dyslexic web readers who need to stop and resume a difficult passage at the exact sentence, with optional paced read-aloud support.",
+  "smallest_useful_product": "Browser extension that saves a per-page sentence anchor, offers a configurable reading strip and device TTS from that anchor, then restores it after navigation.",
+  "success_measure": "In a two-week pilot, users resume 80% of saved articles at the correct sentence without scrolling/searching.",
+  "artifact_class": "browser-extension",
+  "monetization": "one-time",
+  "constraints": "Store anchors locally; do not claim fonts or TTS treat dyslexia; respect protected content and browser permissions.",
+  "non_goals": ["Diagnosis", "Educational assessment", "Cloud accounts", "Generating summaries"]
+}

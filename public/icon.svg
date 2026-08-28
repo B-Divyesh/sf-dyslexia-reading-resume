@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Reading Resume bookmark icon">
+  <rect width="128" height="128" rx="28" fill="#07151a"/>
+  <path d="M27 38h74M27 62h50M27 86h68" fill="none" stroke="#63d8cf" stroke-width="8" stroke-linecap="round" opacity=".78"/>
+  <path d="M74 27h27v72L87.5 88 74 99V27Z" fill="#d7f36a" stroke="#f4f5ea" stroke-width="3" stroke-linejoin="round"/>
+</svg>
