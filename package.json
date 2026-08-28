@@ -8,8 +8,8 @@
     "dev:site": "vite --config site/vite.config.ts",
     "prepare:types": "wxt prepare",
     "build:extension": "wxt build",
-    "build:site": "vite build --config site/vite.config.ts",
-    "build": "node scripts/build.mjs",
+    "build:site": "node scripts/build.mjs",
+    "build": "npm run build:site",
     "test": "npm run prepare:types && vitest run",
     "test:e2e": "playwright test",
     "check": "npm run prepare:types && tsc --noEmit && npm test && npm run build"

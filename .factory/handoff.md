@@ -7,12 +7,12 @@ Base/report: `5e87f88b855b20ca3b2a1022c654f705760f2120` (candidate `e7e5db7d4a4e
 ## Repaired
 
 - Sentence saving now compares the selected DOM range with each sentence range. Selecting a later sentence within one shared text node no longer resolves to the first sentence.
-- The packaged ZIP is generated in `dist/site/downloads/reading-resume-chrome.zip` and the build fails unless `manifest.json` is at the archive root. The consumer test verifies a `200` ZIP response and `PK` magic bytes.
+- `npm run build:site` now builds both artifacts and generates `dist/site/downloads/reading-resume-chrome.zip`; the build fails unless `manifest.json` is at the archive root. The consumer test verifies a `200` ZIP response and `PK` magic bytes.
 - `npm test` and `npm run check` now run `wxt prepare` themselves, so a clean checkout no longer needs a prior build to resolve `.wxt/tsconfig.json`.
 - The 390px hero artwork is constrained to the viewport instead of its former 110% width; the mobile browser regression asserts no document overflow.
 - Empty license submission now retains the specific recovery message: “Enter the license token from your receipt.”
 - The service-worker cache is content-versioned at build time, cleans older Reading Resume caches on activation, claims clients, and uses network-first navigation with a cached offline shell fallback.
-- Static-host policy is declared in `site/public/_headers`: immutable caching for hashed assets, no-cache worker updates, CSP, Permissions-Policy, frame denial, nosniff, and strict referrer policy.
+- Static-host policy is declared for Azure Static Web Apps in `site/public/staticwebapp.config.json` (and portable `_headers`): immutable caching for hashed assets, no-cache worker updates, ZIP MIME type, CSP, Permissions-Policy, frame denial, nosniff, and strict referrer policy.
 
 ## Regression coverage
 
@@ -42,7 +42,7 @@ npm audit --omit=dev --json
 
 ## Deployment and live verification
 
-The static deploy root remains `dist/site/`; the artifact class remains a WXT TypeScript MV3 browser extension with a static landing site. Pushing `main` publishes the static output through the factory deployment configuration. After the push, verify the live `/downloads/reading-resume-chrome.zip` is `200`, has a ZIP content type and `PK` header, and that the declared response headers are applied by the host.
+The static deploy root remains `dist/site/`; the artifact class remains a WXT TypeScript MV3 browser extension with a static landing site. The factory deployment command is `npm ci && npm test && npm run build:site`, followed by the static publish of `dist/site/`; it now includes the ZIP instead of deploying a site whose download URL has no file. After the push, verify the live `/downloads/reading-resume-chrome.zip` is `200`, has a ZIP content type and `PK` header, and that the declared response headers are applied by the host.
 
 ## Known limitations
 
