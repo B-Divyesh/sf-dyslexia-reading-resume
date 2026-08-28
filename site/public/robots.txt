@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dyslexia-reading-resume.sociobot.in/sitemap.xml
