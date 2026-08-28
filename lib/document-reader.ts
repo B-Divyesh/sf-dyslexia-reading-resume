@@ -69,7 +69,10 @@ export function sentenceNearestViewport(sentences: PageSentence[]): number {
   const selection = document.getSelection();
   if (selection?.rangeCount && !selection.isCollapsed) {
     const selected = selection.getRangeAt(0);
-    const index = sentences.findIndex((item) => item.range.intersectsNode(selected.commonAncestorContainer));
+    // A common ancestor can contain every sentence in a paragraph, so testing it
+    // chooses the first sentence whenever the selection lives in one text node.
+    // Compare the actual range boundaries instead.
+    const index = sentences.findIndex((item) => rangesOverlap(item.range, selected));
     if (index >= 0) return index;
   }
   const targetY = window.innerHeight * 0.44;
@@ -85,6 +88,11 @@ export function sentenceNearestViewport(sentences: PageSentence[]): number {
     }
   });
   return best;
+}
+
+function rangesOverlap(first: Range, second: Range): boolean {
+  return first.compareBoundaryPoints(Range.START_TO_END, second) > 0
+    && first.compareBoundaryPoints(Range.END_TO_START, second) < 0;
 }
 
 export function makeAnchor(sentences: PageSentence[], index: number): SentenceAnchor {

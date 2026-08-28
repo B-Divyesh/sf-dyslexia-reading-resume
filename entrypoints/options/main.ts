@@ -72,8 +72,10 @@ async function init(): Promise<void> {
       const result = await verifyLicense(($<HTMLInputElement>('#license')).value);
       if (result.valid) unlockPlus();
       else status.textContent = 'That license is not active. Check the token and try again.';
-    } catch {
-      status.textContent = 'Could not reach the license service. Your free reader still works offline.';
+    } catch (error) {
+      status.textContent = error instanceof Error
+        ? error.message
+        : 'Could not reach the license service. Your free reader still works offline.';
     }
   });
   $('#presets').addEventListener('click', (event) => {
