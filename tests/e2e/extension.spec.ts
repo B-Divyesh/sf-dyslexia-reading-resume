@@ -98,3 +98,53 @@ test('packaged extension saves the specifically selected sentence in a shared te
     await rm(profile, { recursive: true, force: true });
   }
 });
+
+test('packaged extension resumes the selected occurrence of an exact duplicate sentence', async ({}, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium');
+  const extensionPath = resolve('dist/extension/chrome-mv3');
+  const profile = await mkdtemp(join(tmpdir(), 'reading-resume-duplicate-'));
+  const context = await chromium.launchPersistentContext(profile, {
+    channel: 'chromium',
+    headless: true,
+    args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+  });
+  try {
+    let worker = context.serviceWorkers()[0];
+    if (!worker) worker = await context.waitForEvent('serviceworker');
+    const page = await context.newPage();
+    await page.goto('http://127.0.0.1:4173/');
+    await page.setContent(`<main>
+      <p>Opening context.</p>
+      <p>Duplicate marker sentence.</p>
+      <p>Middle context.</p>
+      <p>Duplicate marker sentence.</p>
+      <p>Closing context.</p>
+    </main>`);
+    await page.locator('p').nth(3).selectText();
+
+    const send = async (type: string) => worker!.evaluate(async ({ type, targetUrl }) => {
+      const tabs = await chrome.tabs.query({});
+      const tab = tabs.find((item) => item.url === targetUrl);
+      if (!tab?.id) throw new Error('Article tab not found');
+      return chrome.tabs.sendMessage(tab.id, { type });
+    }, { type, targetUrl: page.url() });
+    const highlightedParagraph = () => page.evaluate(() => {
+      const highlight = CSS.highlights.get('reading-resume-current');
+      const range = highlight ? [...highlight][0] as Range : undefined;
+      return range ? [...document.querySelectorAll('p')].indexOf(range.startContainer.parentElement as HTMLParagraphElement) : -1;
+    });
+
+    const saved = await send('SAVE_PLACE') as { sentence?: string; error?: string };
+    expect(saved.error).toBeUndefined();
+    expect(saved.sentence).toBe('Duplicate marker sentence.');
+    expect(await highlightedParagraph()).toBe(3);
+
+    const restored = await send('RESUME_PLACE') as { sentence?: string; error?: string };
+    expect(restored.error).toBeUndefined();
+    expect(restored.sentence).toBe('Duplicate marker sentence.');
+    expect(await highlightedParagraph()).toBe(3);
+  } finally {
+    await context.close();
+    await rm(profile, { recursive: true, force: true });
+  }
+});

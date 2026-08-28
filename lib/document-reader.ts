@@ -110,7 +110,10 @@ export function makeAnchor(sentences: PageSentence[], index: number): SentenceAn
 }
 
 export function locateAnchor(sentences: PageSentence[], anchor: SentenceAnchor): number {
-  const mainIndex = bestSentenceIndex(sentences, anchor.sentence, anchor.sentenceIndex);
+  const mainIndex = bestSentenceIndex(sentences, anchor.sentence, anchor.sentenceIndex, {
+    prefix: anchor.prefix,
+    suffix: anchor.suffix
+  });
   if (mainIndex < 0) return -1;
   const candidate = sentences[mainIndex];
   if (!candidate) return -1;

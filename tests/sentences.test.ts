@@ -17,6 +17,23 @@ describe('sentence matching', () => {
     expect(bestSentenceIndex(current, 'Keep this exact sentence.', 9)).toBe(1);
   });
 
+  it('uses neighboring context to distinguish exact duplicate sentences', () => {
+    const current = splitSentences(
+      'Opening context. Duplicate marker sentence. Middle context. Duplicate marker sentence. Closing context.',
+      'en'
+    );
+
+    expect(bestSentenceIndex(current, 'Duplicate marker sentence.', 1, {
+      prefix: 'Middle context.',
+      suffix: 'Closing context.'
+    })).toBe(3);
+  });
+
+  it('uses the saved index when exact duplicates have no distinguishing context', () => {
+    const current = splitSentences('Duplicate marker sentence. Divider. Duplicate marker sentence.', 'en');
+    expect(bestSentenceIndex(current, 'Duplicate marker sentence.', 2)).toBe(2);
+  });
+
   it('finds a lightly edited sentence using word overlap', () => {
     const current = splitSentences('Unrelated opening. Return reliably to this same difficult passage after an interruption.', 'en');
     expect(bestSentenceIndex(current, 'Return to this difficult passage reliably after interruption.', 1)).toBe(1);

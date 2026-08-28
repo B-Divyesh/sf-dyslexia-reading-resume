@@ -4,6 +4,11 @@ export interface SentenceLocation {
   end: number;
 }
 
+export interface SentenceContext {
+  prefix?: string;
+  suffix?: string;
+}
+
 export function normalizeSentence(value: string): string {
   return value.replace(/\s+/g, ' ').trim();
 }
@@ -36,9 +41,25 @@ export function similarity(a: string, b: string): number {
   return (2 * shared) / (wordsA.size + wordsB.size);
 }
 
-export function bestSentenceIndex(sentences: SentenceLocation[], target: string, expectedIndex = 0): number {
-  const exact = sentences.findIndex((item) => normalizeSentence(item.text) === normalizeSentence(target));
-  if (exact >= 0) return exact;
+export function bestSentenceIndex(
+  sentences: SentenceLocation[],
+  target: string,
+  expectedIndex = 0,
+  context?: SentenceContext
+): number {
+  const normalizedTarget = normalizeSentence(target);
+  const exactMatches = sentences
+    .map((item, index) => normalizeSentence(item.text) === normalizedTarget ? index : -1)
+    .filter((index) => index >= 0);
+  if (exactMatches.length === 1) return exactMatches[0]!;
+  if (exactMatches.length > 1) {
+    return exactMatches.reduce((best, candidate) => {
+      const bestContext = neighborContextScore(sentences, best, context);
+      const candidateContext = neighborContextScore(sentences, candidate, context);
+      if (candidateContext !== bestContext) return candidateContext > bestContext ? candidate : best;
+      return Math.abs(candidate - expectedIndex) < Math.abs(best - expectedIndex) ? candidate : best;
+    });
+  }
   let best = -1;
   let score = 0;
   sentences.forEach((item, index) => {
@@ -50,4 +71,24 @@ export function bestSentenceIndex(sentences: SentenceLocation[], target: string,
     }
   });
   return score >= 0.58 ? best : -1;
+}
+
+function neighborContextScore(sentences: SentenceLocation[], index: number, context?: SentenceContext): number {
+  if (!context) return 0;
+  const comparisons: Array<[string, string | undefined]> = [
+    [sentences[index - 1]?.text || '', context.prefix],
+    [sentences[index + 1]?.text || '', context.suffix]
+  ];
+  let score = 0;
+  let count = 0;
+  for (const [actual, expected] of comparisons) {
+    if (expected === undefined) continue;
+    const normalizedActual = normalizeSentence(actual);
+    const normalizedExpected = normalizeSentence(expected);
+    score += normalizedActual === normalizedExpected
+      ? 1
+      : similarity(normalizedActual, normalizedExpected);
+    count += 1;
+  }
+  return count ? score / count : 0;
 }
