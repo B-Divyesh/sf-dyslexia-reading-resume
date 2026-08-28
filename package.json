@@ -1,0 +1,27 @@
+{
+  "name": "dyslexia-reading-resume",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "dev:site": "vite --config site/vite.config.ts",
+    "build:extension": "wxt build",
+    "build:site": "vite build --config site/vite.config.ts",
+    "build": "node scripts/build.mjs",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "check": "tsc --noEmit && npm test && npm run build"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.10.2",
+    "@playwright/test": "1.58.2",
+    "@types/chrome": "0.0.326",
+    "jsdom": "26.1.0",
+    "sharp": "0.34.3",
+    "typescript": "5.9.2",
+    "vite": "7.1.3",
+    "vitest": "3.2.4",
+    "wxt": "0.20.6"
+  }
+}

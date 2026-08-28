@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reading Resume settings</title>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to settings</a>
+    <header class="mast"><a class="brand" href="#main"><span aria-hidden="true">⌁</span> Reading Resume</a><span>Stored on this device</span></header>
+    <main id="main">
+      <div class="intro"><p class="eyebrow">Reading strip</p><h1>Make the next sentence comfortable.</h1><p>These choices change the floating strip, not the article underneath. They are reading preferences, not treatment.</p></div>
+      <form id="settings-form">
+        <section aria-labelledby="type-title"><div class="section-copy"><p class="index">01</p><h2 id="type-title">Text and space</h2><p>Adjust in small steps. The preview responds as you move each control.</p></div><div class="controls">
+          <label for="fontSize"><span>Text size</span><output id="fontSizeOut">20 px</output></label><input id="fontSize" name="fontSize" type="range" min="17" max="30" step="1" />
+          <label for="lineHeight"><span>Line spacing</span><output id="lineHeightOut">1.65×</output></label><input id="lineHeight" name="lineHeight" type="range" min="1.4" max="2" step="0.05" />
+          <label for="stripWidth"><span>Strip width</span><output id="stripWidthOut">760 px</output></label><input id="stripWidth" name="stripWidth" type="range" min="480" max="1000" step="20" />
+        </div></section>
+        <section aria-labelledby="pace-title"><div class="section-copy"><p class="index">02</p><h2 id="pace-title">Voice and pace</h2><p>Read aloud uses voices already installed on your device. No article text is sent by Reading Resume.</p></div><div class="controls">
+          <label for="rate"><span>Voice speed</span><output id="rateOut">0.9×</output></label><input id="rate" name="rate" type="range" min="0.6" max="1.4" step="0.05" />
+          <label for="pauseMs"><span>Pause between sentences</span><output id="pauseMsOut">300 ms</output></label><input id="pauseMs" name="pauseMs" type="range" min="0" max="1200" step="100" />
+        </div></section>
+        <section aria-labelledby="display-title"><div class="section-copy"><p class="index">03</p><h2 id="display-title">Surface</h2><p>Choose a high-contrast strip. Page-aware follows your device preference.</p></div><div class="controls">
+          <fieldset><legend>Strip theme</legend><div class="choices"><label><input type="radio" name="theme" value="dark" /> Dark glass</label><label><input type="radio" name="theme" value="light" /> Paper light</label><label><input type="radio" name="theme" value="page" /> Device</label></div></fieldset>
+          <label class="check"><input id="dimPage" name="dimPage" type="checkbox" /><span>Reduce surrounding page brightness while the strip is open</span></label>
+        </div></section>
+        <div class="save-row"><button class="primary" type="submit">Save reading settings</button><p id="save-status" role="status" aria-live="polite"></p></div>
+      </form>
+      <aside class="preview-wrap" aria-label="Reading strip preview"><p class="preview-label">Live preview</p><div id="preview" class="preview"><span>● Saved place</span><p>One clear sentence can make returning feel effortless.</p></div></aside>
+      <section class="plus" aria-labelledby="plus-title"><div><p class="eyebrow">Optional Plus unlock</p><h2 id="plus-title">Save your favorite setups</h2><p>Reading Resume’s core saving, restore, controls, and read aloud stay free. A $12 one-time Plus purchase adds three one-tap visual presets and supports maintenance.</p></div><div class="plus-action"><a class="primary button" href="https://api.sociobot.in/api/v1/products/dyslexia-reading-resume/checkout" target="_blank">Buy Plus — $12 once</a><form id="license-form"><label for="license">Have a license?</label><div><input id="license" autocomplete="off" spellcheck="false" placeholder="Paste license token" /><button type="submit">Verify</button></div><p id="license-status" role="status" aria-live="polite"></p></form></div><div id="presets" class="presets" hidden><button data-preset="calm">Calm night</button><button data-preset="paper">Paper day</button><button data-preset="wide">Wide focus</button></div></section>
+      <section class="data" aria-labelledby="data-title"><h2 id="data-title">Your saved places</h2><p>Anchors never leave browser storage. Export a readable backup or clear them from this device.</p><div class="data-actions"><button id="export" type="button">Export saved places</button><button id="clear" class="danger" type="button">Clear saved places</button></div><p id="data-status" role="status" aria-live="polite"></p></section>
+    </main>
+    <footer><a href="https://dyslexia-reading-resume.sociobot.in/privacy" target="_blank">Privacy</a><a href="https://dyslexia-reading-resume.sociobot.in/terms" target="_blank">Terms</a><span>Reading support, not diagnosis or treatment.</span></footer>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
