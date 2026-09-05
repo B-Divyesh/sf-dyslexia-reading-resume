@@ -1,5 +1,19 @@
 # Reading Resume — repair handoff
 
+## Verification 4
+
+- Date: 2026-09-05
+- Work order: `dyslexia-reading-resume-verify-4`
+- Verdict: **PASS** — zero findings and zero untested public claims.
+- Implementation reviewed: `ce19f6b1173bbdc57f816f4da2506c4df5746582`
+- Documentation revision reviewed: `cdc19597c0f7e9977bd06170ff1b85f27ef5f3ba`
+
+Fresh desktop and 390 px phone browser checks confirmed the job, audience, and first action before scrolling. The live `/demo/` sample has a persistent isolation label, Reset demo, Start for real, realistic populated state, sentence save/reload/resume, and no change to a seeded real-data key. The clean candidate build, all 19 individual declared claim commands, and the full 54-test browser suite passed. Production dependencies have zero audit findings.
+
+Live route semantics, metadata, Axe serious/critical checks, keyboard focus, reduced motion, offline demo reload, ZIP payload identity, AVIF MIME, headers, legal pages, and designed HTTP 404 all passed. The intentional 404 network-console entry is expected. The prior selected-sentence, duplicate-occurrence, archive, clean-setup, mobile-overflow, blank-license, cache/header, demo, metadata/404, AVIF, and documentation-evidence findings are all resolved; see `.factory/verification-4.md` for evidence.
+
+No product code changed during verification. No known product gaps remain. The unrestricted audit retains 12 development-tool advisories, while `npm audit --omit=dev` is clean. A new Lighthouse score was not recorded because Lighthouse 13 could not attach to the preinstalled Chromium in this container; no public claim relies on that unavailable measurement.
+
 - Date: 2026-09-05
 - Work order: `dyslexia-reading-resume-repair-3`
 - Implementation commit: `ce19f6b1173bbdc57f816f4da2506c4df5746582`
