@@ -1,5 +1,17 @@
 # Reading Resume — repair handoff
 
+## Review 2
+
+- Date: 2026-09-05
+- Work order: `dyslexia-reading-resume-review-2`
+- Verdict: **FAIL** — 1 finding and 7 untested public claims.
+- Implementation reviewed: `ce19f6b1173bbdc57f816f4da2506c4df5746582`
+- Documentation revision reviewed: `7f56026a87f0ecee32e1a4f7355691d9a8c711e1`
+
+No product code changed. A fresh `npm ci`, `npm run check`, `npm run test:e2e` (54 tests), production audit, all 19 individual claim commands, live desktop/390 px flows, offline reload, accessibility checks, links, headers, 404, and ZIP payload comparison passed. The live site matches the implementation candidate.
+
+The strict review is nevertheless **FAIL** because `.factory/claims.json` does not fully cover all public statements. Seven claims are untested: no article-text transmission, normal local anchor/settings storage, the site-wide no-tracking/cookies statement, three Plus presets, normal free-extension offline use, visible-sentence read aloud, and free-core behavior. See `.factory/review-2.md` for exact evidence and required tests. Do not claim product PASS until those claim tests are added or the public statements are removed/narrowed.
+
 ## Verification 4
 
 - Date: 2026-09-05
