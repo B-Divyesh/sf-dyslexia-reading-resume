@@ -4,6 +4,7 @@
 - Work order: `dyslexia-reading-resume-repair-3`
 - Implementation commit: `ce19f6b1173bbdc57f816f4da2506c4df5746582`
 - Documentation correction commit: `24005d9f3e56bb29746c1fe51c36079617e4fe47`
+- Handoff documentation commit: `1bfa37798e260cdb5d1f67edc0953db32bf051c6`
 - Live URL: <https://dyslexia-reading-resume.sociobot.in/>
 - Deployment: Static Web App `sf-dyslexia-reading-resume`, existing production app reused; upload succeeded.
 - Verdict: **PASS**
