@@ -1,10 +1,11 @@
 import { licenseState, verifyLicense } from '../../lib/license';
-import { ANCHOR_PREFIX, getSettings, listAnchors, setSettings } from '../../lib/storage';
+import { ANCHOR_PREFIX, DEMO_ANCHOR_PREFIX, getSettings, listAnchors, setSettings } from '../../lib/storage';
 import type { ReadingSettings } from '../../lib/types';
 import './style.css';
 
 const $ = <T extends HTMLElement>(selector: string) => document.querySelector<T>(selector)!;
 let settings: ReadingSettings;
+const demoMode = new URLSearchParams(location.search).get('demo') === '1';
 
 function readForm(): ReadingSettings {
   const form = new FormData($('#settings-form') as HTMLFormElement);
@@ -88,7 +89,7 @@ async function init(): Promise<void> {
     $('#save-status').textContent = 'Plus preset applied and saved.';
   });
   $('#export').addEventListener('click', async () => {
-    const data = JSON.stringify({ product: 'Reading Resume', exportedAt: new Date().toISOString(), anchors: await listAnchors() }, null, 2);
+    const data = JSON.stringify({ product: 'Reading Resume', exportedAt: new Date().toISOString(), anchors: await listAnchors(demoMode) }, null, 2);
     const link = document.createElement('a');
     link.href = URL.createObjectURL(new Blob([data], { type: 'application/json' }));
     link.download = `reading-resume-${new Date().toISOString().slice(0, 10)}.json`;
@@ -99,7 +100,8 @@ async function init(): Promise<void> {
   $('#clear').addEventListener('click', async () => {
     if (!confirm('Clear every saved sentence from this device? This cannot be undone.')) return;
     const all = await browser.storage.local.get(null);
-    await browser.storage.local.remove(Object.keys(all).filter((key) => key.startsWith(ANCHOR_PREFIX)));
+    const prefix = demoMode ? DEMO_ANCHOR_PREFIX : ANCHOR_PREFIX;
+    await browser.storage.local.remove(Object.keys(all).filter((key) => key.startsWith(prefix)));
     $('#data-status').textContent = 'All saved places were cleared.';
   });
   await initLicense();

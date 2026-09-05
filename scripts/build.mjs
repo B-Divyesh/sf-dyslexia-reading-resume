@@ -16,6 +16,8 @@ mkdirSync(iconDir, { recursive: true });
 await Promise.all([
   sharp(sourceImage).resize({ width: 800 }).avif({ quality: 48 }).toFile(resolve(publicImages, 'reading-coordinate-800.avif')),
   sharp(sourceImage).resize({ width: 1400 }).avif({ quality: 52 }).toFile(resolve(publicImages, 'reading-coordinate-1400.avif')),
+  sharp(sourceImage).resize({ width: 1200, height: 630, fit: 'cover', position: 'attention' }).jpeg({ quality: 84, mozjpeg: true }).toFile(resolve(publicImages, 'reading-resume-social.jpg')),
+  sharp(iconSource).resize(180, 180).png().toFile(resolve(root, 'site/public/apple-touch-icon.png')),
   ...[16, 32, 48, 128].map((size) => sharp(iconSource).resize(size, size).png().toFile(resolve(iconDir, `${size}.png`)))
 ]);
 

@@ -1,5 +1,5 @@
 import { collectPageSentences, locateAnchor, makeAnchor, sentenceNearestViewport, type PageSentence } from '../lib/document-reader';
-import { getAnchor, getSettings, setAnchor } from '../lib/storage';
+import { getAnchor, getSettings, isDemoUrl, removeAnchor, setAnchor } from '../lib/storage';
 import type { ContentRequest, ContentStatus, ReadingSettings, SentenceAnchor } from '../lib/types';
 
 const HIGHLIGHT_NAME = 'reading-resume-current';
@@ -26,8 +26,21 @@ export default defineContentScript({
         render();
       }
     });
+    if (isDemoUrl(location.href)) {
+      window.addEventListener('message', (event) => {
+        if (event.source !== window || event.origin !== location.origin || event.data?.type !== 'reading-resume-demo-reset') return;
+        void resetDemoPlace();
+      });
+    }
   }
 });
+
+async function resetDemoPlace(): Promise<void> {
+  await removeAnchor(location.href);
+  anchor = undefined;
+  closeStrip();
+  statusText = 'Demo place reset.';
+}
 
 async function handleMessage(message: ContentRequest): Promise<ContentStatus> {
   try {

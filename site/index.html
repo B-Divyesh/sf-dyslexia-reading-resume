@@ -4,18 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#07151a" />
-    <meta name="description" content="Reading Resume is a local-first browser extension that saves your exact sentence and helps you continue with an optional reading strip and device voice." />
-    <title>Reading Resume — return to the exact sentence</title>
+    <meta name="description" content="Save one exact sentence in a web article and return to it after an interruption." />
+    <link rel="canonical" href="https://dyslexia-reading-resume.sociobot.in/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Reading Resume — Save your reading place" />
+    <meta property="og:description" content="Save one exact sentence in a web article and return to it after an interruption." />
+    <meta property="og:url" content="https://dyslexia-reading-resume.sociobot.in/" />
+    <meta property="og:image" content="https://dyslexia-reading-resume.sociobot.in/images/reading-resume-social.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Reading Resume — Save your reading place" />
+    <meta name="twitter:description" content="Save one exact sentence in a web article and return to it after an interruption." />
+    <meta name="twitter:image" content="https://dyslexia-reading-resume.sociobot.in/images/reading-resume-social.jpg" />
+    <title>Reading Resume — Save your reading place</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preload" href="/fonts/atkinson-hyperlegible-regular.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="stylesheet" href="/src/site.css" />
-    <link rel="stylesheet" href="/src/repair.css" />
   </head>
   <body>
     <a class="skip" href="#main">Skip to main content</a>
     <header class="site-header">
       <a class="brand" href="/" aria-label="Reading Resume home"><span class="brand-mark" aria-hidden="true">⌁</span><span>Reading Resume</span></a>
-      <nav aria-label="Primary navigation"><a href="#how">How it works</a><a href="#privacy-first">Privacy</a><a class="nav-download" href="/downloads/reading-resume-chrome.zip" download>Download</a></nav>
+      <nav aria-label="Primary navigation"><a href="/demo/">Demo</a><a href="#how">How it works</a><a href="#privacy">Privacy</a><a class="nav-download" href="/downloads/reading-resume-chrome.zip" download>Download</a></nav>
     </header>
     <main id="main">
       <section class="hero" aria-labelledby="hero-title">
@@ -27,56 +37,49 @@
           </picture>
         </div>
         <div class="hero-copy">
-          <p class="eyebrow"><span aria-hidden="true"></span> A sentence is a place</p>
-          <h1 id="hero-title">Stop reading.<br />Not your progress.</h1>
-          <p class="lede">Reading Resume remembers the exact sentence where you paused—then brings it back with a calm reading strip and optional device voice.</p>
-          <div class="hero-actions"><a class="button primary" href="/downloads/reading-resume-chrome.zip" download>Download for Chrome <span aria-hidden="true">↓</span></a><a class="text-link" href="#how">See the 3-step flow</a></div>
-          <p class="micro">Free core · Local storage · No account · Chrome / Edge</p>
+          <p class="eyebrow"><span aria-hidden="true"></span> Browser extension</p>
+          <h1 id="hero-title">Save your place in a web article</h1>
+          <p class="lede">For dyslexic web readers who need to resume after an interruption.</p>
+          <div class="hero-actions"><a class="button primary" href="/demo/">Try it with sample data <span aria-hidden="true">→</span></a><span class="action-help">See a saved sentence in a sample article.</span></div>
+          <ul class="plain-facts" aria-label="Reading Resume facts"><li>Free core reader</li><li>Saved places stay on your device</li><li>$12 once for optional presets</li></ul>
         </div>
       </section>
 
-      <section class="promise" aria-label="Product promise">
-        <p>Built around the moment that usually gets lost.</p>
-        <blockquote>“I stopped at <mark>this sentence</mark>. Bring me back here.”</blockquote>
+      <section class="product-preview" aria-labelledby="preview-title">
+        <div class="section-heading"><p class="eyebrow">Sample reading strip</p><h2 id="preview-title">Return to one saved sentence</h2><p>Open the sample to see a saved place, sentence controls, and read aloud.</p></div>
+        <div class="glass-stage" aria-label="Example reading strip">
+          <div class="ghost-lines" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="reading-strip"><div class="strip-meta"><strong>● Saved sample place</strong><span>Sentence 3 of 5</span></div><p>At 2:15, Mira stopped at the sentence about the train platform.</p><div class="strip-controls"><a class="button primary" href="/demo/">Open the sample</a></div></div>
+        </div>
       </section>
 
       <section class="steps" id="how" aria-labelledby="how-title">
-        <div class="section-heading"><p class="eyebrow">Mark → orient → continue</p><h2 id="how-title">Your place survives the interruption.</h2></div>
+        <div class="section-heading"><p class="eyebrow">How it works</p><h2 id="how-title">Save, return, and continue reading</h2></div>
         <ol>
-          <li><span class="number">01</span><div class="step-visual mark-visual" aria-hidden="true"><span class="line"></span><span class="line active"></span><span class="line short"></span><i></i></div><h3>Mark the sentence</h3><p>Select text or leave it centered, then save with the popup or <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>.</p></li>
-          <li><span class="number">02</span><div class="step-visual return-visual" aria-hidden="true"><span></span><i>⌁</i></div><h3>Leave without worry</h3><p>The sentence and nearby context stay in browser storage, attached to that page—not to an account.</p></li>
-          <li><span class="number">03</span><div class="step-visual continue-visual" aria-hidden="true"><span>▶</span><i></i><i></i><i></i></div><h3>Continue in rhythm</h3><p>Return to the line, open the focused strip, or let your device voice pace one sentence at a time.</p></li>
+          <li><span class="number">01</span><div class="step-visual mark-visual" aria-hidden="true"><span class="line"></span><span class="line active"></span><span class="line short"></span><i></i></div><h3>Save a sentence</h3><p>Select a sentence, or leave one near the middle of the page. Then save it with the extension.</p></li>
+          <li><span class="number">02</span><div class="step-visual return-visual" aria-hidden="true"><span></span><i>⌁</i></div><h3>Open the page again</h3><p>Choose Resume to return to the saved sentence after a reload or a later visit.</p></li>
+          <li><span class="number">03</span><div class="step-visual continue-visual" aria-hidden="true"><span>▶</span><i></i><i></i><i></i></div><h3>Use the reading strip</h3><p>Move one sentence at a time. Use your browser voice when read aloud is useful.</p></li>
         </ol>
       </section>
 
-      <section class="strip-demo" aria-labelledby="strip-title">
-        <div class="demo-copy"><p class="eyebrow">The reading strip</p><h2 id="strip-title">One sentence. Less visual noise.</h2><p>Move forward or back without searching the whole page. Set the size, spacing, width, surface, voice speed, and pause that feel useful to you.</p><p class="note">Reading Resume offers reading support. It does not diagnose, treat, or claim to change dyslexia.</p></div>
-        <div class="glass-stage" aria-label="Example reading strip">
-          <div class="ghost-lines" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
-          <div class="reading-strip"><div class="strip-meta"><strong>● Saved place</strong><span>Sentence 18 of 46</span></div><p>When you return, the sentence waits where you left it.</p><div class="strip-controls"><button type="button" aria-label="Previous sentence in example">←</button><button type="button" class="play" aria-label="Read aloud example sentence">▶ Read aloud</button><button type="button" aria-label="Next sentence in example">→</button></div></div>
-        </div>
-      </section>
-
-      <section class="privacy" id="privacy-first" aria-labelledby="privacy-title">
-        <div><p class="eyebrow">Private by construction</p><h2 id="privacy-title">Your difficult passages are not our data.</h2></div>
-        <ul><li><span aria-hidden="true">⌂</span><div><h3>Local anchors</h3><p>Saved sentences remain in extension storage on your device.</p></div></li><li><span aria-hidden="true">◌</span><div><h3>Device speech</h3><p>Reading uses your browser’s installed voices. Reading Resume sends no article text to us.</p></div></li><li><span aria-hidden="true">∅</span><div><h3>No account or tracking</h3><p>No behavioral analytics, ads, cloud reading history, or third-party runtime scripts.</p></div></li></ul>
+      <section class="privacy" id="privacy" aria-labelledby="privacy-title">
+        <div><p class="eyebrow">Privacy and limits</p><h2 id="privacy-title">Your saved places stay in browser storage</h2></div>
+        <ul><li><span aria-hidden="true">⌂</span><div><h3>Local saved places</h3><p>The extension keeps page anchors and reading settings in browser storage on your device.</p></div></li><li><span aria-hidden="true">◌</span><div><h3>Browser read aloud</h3><p>Read aloud uses your browser or device voice. The extension does not send article text to Reading Resume.</p></div></li><li><span aria-hidden="true">∅</span><div><h3>No account required</h3><p>The website has no analytics, ads, or third-party runtime scripts.</p></div></li></ul>
       </section>
 
       <section class="install" aria-labelledby="install-title">
-        <div><p class="eyebrow">Install in under a minute</p><h2 id="install-title">Add your return point.</h2><p>This first release installs as an unpacked Chrome-compatible extension while store review is pending.</p></div>
-        <ol><li><span>1</span><p>Download and unzip Reading Resume.</p></li><li><span>2</span><p>Open <code>chrome://extensions</code> and turn on Developer mode.</p></li><li><span>3</span><p>Choose “Load unpacked” and select the unzipped folder.</p></li></ol>
+        <div><p class="eyebrow">Install the extension</p><h2 id="install-title">Add Reading Resume to Chrome or Edge</h2><p>Download the ZIP, unzip it, then load the folder from your browser’s extensions page.</p></div>
+        <ol><li><span>1</span><p>Download and unzip Reading Resume.</p></li><li><span>2</span><p>Open <code>chrome://extensions</code> and turn on Developer mode.</p></li><li><span>3</span><p>Choose Load unpacked and select the unzipped folder.</p></li></ol>
         <a class="button primary" href="/downloads/reading-resume-chrome.zip" download>Download extension <span aria-hidden="true">↓</span></a>
       </section>
 
       <section class="pricing" aria-labelledby="pricing-title">
-        <div><p class="eyebrow">Optional Plus</p><h2 id="pricing-title">The reader stays free.<br />Favorite setups are $12 once.</h2><p>Plus adds three one-tap reading-strip presets and helps maintain the extension. It never gates saving, returning, read aloud, accessibility controls, or export.</p></div>
-        <div class="price-card"><p class="price"><span>$</span>12</p><p>One-time purchase<br />No subscription</p><a class="button primary" href="https://api.sociobot.in/api/v1/products/dyslexia-reading-resume/checkout">Buy Reading Resume Plus</a><button id="restore-license" class="quiet" type="button">Have a license? Restore it</button><form id="license-form" hidden><label for="license">License token</label><div><input id="license" autocomplete="off" spellcheck="false" /><button type="submit">Verify</button></div></form><p id="license-status" role="status" aria-live="polite"></p><p class="legal-note">Secure checkout by Sociobot / Dodo, merchant of record. Refunds are handled there and revoke the license. See <a href="/terms/">terms</a>.</p></div>
+        <div><p class="eyebrow">Optional presets</p><h2 id="pricing-title">Keep the free reader. Add presets for $12 once.</h2><p>Plus adds three one-tap reading-strip presets. Saving, returning, read aloud, accessibility controls, and export stay free.</p></div>
+        <div class="price-card"><p class="price"><span>$</span>12</p><p>One-time purchase. No subscription.</p><a class="button primary" href="https://api.sociobot.in/api/v1/products/dyslexia-reading-resume/checkout">Buy Plus at Sociobot checkout</a><button id="restore-license" class="quiet" type="button">Have a license? Restore it</button><form id="license-form" hidden><label for="license">License token</label><div><input id="license" aria-required="true" aria-describedby="license-help license-status" autocomplete="off" spellcheck="false" /><button type="submit">Verify</button></div><p id="license-help" class="field-help">Enter the token from your receipt.</p></form><p id="license-status" role="status" aria-live="polite"></p><p class="legal-note">Sociobot / Dodo is the merchant of record. See <a href="/terms/">terms</a>.</p></div>
       </section>
-
-      <section class="final-cta" aria-labelledby="final-title"><p class="eyebrow">Keep the thread</p><h2 id="final-title">Your next sentence is still there.</h2><a class="button primary" href="/downloads/reading-resume-chrome.zip" download>Download Reading Resume</a></section>
     </main>
-    <footer class="site-footer"><div class="brand"><span class="brand-mark" aria-hidden="true">⌁</span><span>Reading Resume</span></div><p>Reading support that stays on your device.</p><nav aria-label="Footer navigation"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="https://github.com/B-Divyesh/sf-dyslexia-reading-resume">Source</a></nav><p class="provenance">Hero artwork generated for Reading Resume with the factory image model.</p></footer>
-    <div id="offline" class="offline" role="status" hidden>You’re offline. The download and checkout need a connection.</div>
+    <footer class="site-footer"><div class="brand"><span class="brand-mark" aria-hidden="true">⌁</span><span>Reading Resume</span></div><p>Save a sentence and return to it later.</p><nav aria-label="Footer navigation"><a href="/demo/">Demo</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav><p class="factory-credit">Built by Param Factory · v1.0.0</p><p class="provenance">Hero artwork generated for Reading Resume with the factory image model.</p></footer>
+    <div id="offline" class="offline" role="status" hidden>You’re offline. The sample works after its first visit. Downloads and checkout need a connection.</div>
     <script type="module" src="/src/site.ts"></script>
   </body>
 </html>

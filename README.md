@@ -1,55 +1,58 @@
 # Reading Resume
 
-Reading Resume is a local-first Chrome/Edge extension for readers who lose their place in difficult web passages. It saves an exact sentence per page, restores it after navigation or reload, and offers an adjustable reading strip with optional device read-aloud pacing.
+Reading Resume is a Chrome and Edge extension for dyslexic web readers who need to return to one exact sentence after an interruption.
 
-Live product page: <https://dyslexia-reading-resume.sociobot.in>
+Start with the [sample article](https://dyslexia-reading-resume.sociobot.in/demo/). It shows a saved place immediately. The demo uses separate `demo:` storage, so it never reads or changes real saved places. Resetting the demo restores only the shipped sample.
 
-## What v1 includes
+## What it does
 
-- Save the selected sentence, or the sentence nearest the center of the viewport.
-- Restore by exact text and a conservative fuzzy fallback when a page changes slightly.
-- Move sentence by sentence in a focused strip; adjust size, spacing, width, surface, voice speed, and pauses.
-- Start or pause browser/device speech from the current sentence.
-- Keep page anchors and preferences in `browser.storage.local`; no account, tracking, or article-text API.
-- Export or clear local saved places.
-- Keyboard commands: `Alt+Shift+S` save, `Alt+Shift+R` resume, `Alt+Shift+P` play/pause.
-- Optional $12 one-time Plus license for three convenience presets. Core reading, accessibility settings, and export remain free.
+- Saves a selected sentence and returns to it after a reload.
+- Uses nearby context to return to the selected occurrence when text repeats.
+- Opens a reading strip that moves sentence by sentence.
+- Uses the browser or device voice for optional read aloud.
+- Keeps saved places in browser storage. The extension does not send article text to Reading Resume.
+- Exports or clears saved places from extension settings.
+- Keeps the reader free. Optional reading-strip presets cost $12 once. There is no subscription.
 
-Reading Resume is reading support, not diagnosis or treatment. It does not bypass protected content, browser pages, paywalls, or built-in PDF viewers.
+Reading Resume is reading support. It does not diagnose or treat dyslexia. It cannot bypass protected browser pages, paywalls, access controls, or publisher restrictions.
 
-## Develop
+## Install the extension
+
+1. Download [`reading-resume-chrome.zip`](https://dyslexia-reading-resume.sociobot.in/downloads/reading-resume-chrome.zip).
+2. Unzip the archive.
+3. Open `chrome://extensions` or `edge://extensions`.
+4. Turn on Developer mode, choose **Load unpacked**, and select the unzipped folder.
+
+## Develop and verify
 
 Requires Node.js 22+ and npm.
 
 ```sh
-npm install
-npm run dev          # WXT extension development
-npm run dev:site     # landing site development
-npm test             # unit tests
-npm run test:e2e     # Chromium extension flow, 390 px, and axe checks
-npm run check        # TypeScript + unit tests + production build
+npm ci
+npm test
+npm run build
+npm run test:e2e
+npm audit --omit=dev
 ```
 
-The reproducible production command is:
+The browser suite runs the packaged MV3 extension, the static site, the `/demo/` sandbox, 390 CSS-pixel layout, keyboard and accessibility checks, and offline reload.
+
+Public claims are listed in [.factory/claims.json](.factory/claims.json). Run an individual claim command exactly as recorded there. The complete claim-tagged suite is also available with:
 
 ```sh
-npm run build
+npm run test:claims
 ```
 
-It produces:
+`npm run build` creates:
 
 - `dist/extension/chrome-mv3/` — unpacked MV3 extension
-- `dist/site/` — static deploy root, with `index.html`, `/privacy/`, and `/terms/`
-- `dist/site/downloads/reading-resume-chrome.zip` — installable extension archive with `manifest.json` at its root
+- `dist/site/` — static site with `/`, `/demo/`, `/privacy/`, `/terms/`, and a designed `404.html`
+- `dist/site/downloads/reading-resume-chrome.zip` — installable archive with `manifest.json` at its root
 
-To install locally, unzip the archive, open `chrome://extensions`, enable Developer mode, choose **Load unpacked**, and select the unzipped folder.
+## Privacy, scope, and deployment
 
-## Architecture and privacy
+The site has no analytics, advertising, third-party runtime scripts, or remote fonts. Saved anchors and settings use `browser.storage.local`. The optional license path connects only to the Sociobot billing endpoint when a buyer chooses it. Read the [privacy policy](site/privacy/index.html) and [terms](site/terms/index.html).
 
-WXT builds the TypeScript Manifest V3 extension. The content script uses `Intl.Segmenter`, DOM ranges, and the CSS Custom Highlight API; speech uses `speechSynthesis`. The static Vite site contains no framework, CDN, analytics, cookies, or third-party runtime scripts. See [privacy](site/privacy/index.html) and [terms](site/terms/index.html).
+Deploy `dist/site/` as the static root. The deployment configuration supplies caching, CSP, `image/avif`, and a real 404 response. The factory handles DNS, infrastructure, and paid-product registration.
 
-The visual system and original-image provenance are in [.factory/design.md](.factory/design.md). Atkinson Hyperlegible is self-hosted under the SIL Open Font License; the application code is MIT licensed.
-
-## Deployment
-
-Deploy `dist/site/` as the static root. The factory handles DNS, infrastructure, and paid-product registration. The site and extension use the slug-based Sociobot billing endpoints and contain no provider product ID or secret.
+The visual system and original-art provenance are in [.factory/design.md](.factory/design.md). The application is MIT licensed; Atkinson Hyperlegible is included under the SIL Open Font License.

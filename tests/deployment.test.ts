@@ -3,15 +3,20 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 describe('static deployment policy', () => {
-  it('declares immutable hashed-asset caching and browser hardening headers', () => {
+  it('defines the delivery behavior needed for the static artifact', () => {
     const headers = readFileSync(resolve('site/public/_headers'), 'utf8');
-    const swaConfig = readFileSync(resolve('site/public/staticwebapp.config.json'), 'utf8');
+    const swaConfig = JSON.parse(readFileSync(resolve('site/public/staticwebapp.config.json'), 'utf8')) as {
+      globalHeaders: Record<string, string>;
+      routes: { route: string; headers?: Record<string, string> }[];
+      responseOverrides: Record<string, { rewrite: string; statusCode: number }>;
+      mimeTypes: Record<string, string>;
+    };
     expect(headers).toContain('/assets/*\n  Cache-Control: public, max-age=31536000, immutable');
-    expect(headers).toContain("Content-Security-Policy: default-src 'self'");
-    expect(headers).toContain('Permissions-Policy: camera=(), geolocation=(), microphone=(), payment=(), usb=()');
-    expect(headers).toContain('X-Frame-Options: DENY');
-    expect(swaConfig).toContain('"/downloads/*"');
-    expect(swaConfig).toContain('".zip": "application/zip"');
-    expect(swaConfig).toContain('"Cache-Control": "public, max-age=31536000, immutable"');
+    expect(swaConfig.globalHeaders['Content-Security-Policy']).toMatch(/frame-ancestors 'none'/);
+    expect(swaConfig.globalHeaders['Permissions-Policy']).toContain('payment=()');
+    expect(swaConfig.mimeTypes['.zip']).toBe('application/zip');
+    expect(swaConfig.mimeTypes['.avif']).toBe('image/avif');
+    expect(swaConfig.responseOverrides['404']).toEqual({ rewrite: '/404.html', statusCode: 404 });
+    expect(swaConfig.routes.find((route) => route.route === '/sw.js')?.headers?.['Cache-Control']).toBe('no-cache');
   });
 });

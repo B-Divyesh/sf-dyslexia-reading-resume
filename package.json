@@ -12,6 +12,7 @@
     "build": "npm run build:site",
     "test": "npm run prepare:types && vitest run",
     "test:e2e": "playwright test",
+    "test:claims": "playwright test --grep @claim:",
     "check": "npm run prepare:types && tsc --noEmit && npm test && npm run build"
   },
   "devDependencies": {

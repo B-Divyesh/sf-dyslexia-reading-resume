@@ -2,6 +2,7 @@ import type { LicenseCache, ReadingSettings, SentenceAnchor } from './types';
 import { DEFAULT_SETTINGS } from './types';
 
 export const ANCHOR_PREFIX = 'anchor:';
+export const DEMO_ANCHOR_PREFIX = 'demo:anchor:';
 export const SETTINGS_KEY = 'readingSettings';
 export const LICENSE_KEY = 'sb_license:dyslexia-reading-resume';
 export const LICENSE_CACHE_KEY = 'licenseCache';
@@ -17,7 +18,12 @@ export function normalizePageUrl(input: string): string {
 }
 
 export function anchorKey(input: string): string {
-  return `${ANCHOR_PREFIX}${normalizePageUrl(input)}`;
+  return `${isDemoUrl(input) ? DEMO_ANCHOR_PREFIX : ANCHOR_PREFIX}${normalizePageUrl(input)}`;
+}
+
+export function isDemoUrl(input: string): boolean {
+  const url = new URL(input);
+  return url.pathname === '/demo' || url.pathname === '/demo/' || url.searchParams.get('demo') === '1';
 }
 
 export async function getAnchor(url: string): Promise<SentenceAnchor | undefined> {
@@ -33,10 +39,10 @@ export async function removeAnchor(url: string): Promise<void> {
   await browser.storage.local.remove(anchorKey(url));
 }
 
-export async function listAnchors(): Promise<SentenceAnchor[]> {
+export async function listAnchors(demo = false): Promise<SentenceAnchor[]> {
   const all = await browser.storage.local.get(null);
   return Object.entries(all)
-    .filter(([key]) => key.startsWith(ANCHOR_PREFIX))
+    .filter(([key]) => key.startsWith(demo ? DEMO_ANCHOR_PREFIX : ANCHOR_PREFIX))
     .map(([, value]) => value as SentenceAnchor)
     .sort((a, b) => b.savedAt - a.savedAt);
 }

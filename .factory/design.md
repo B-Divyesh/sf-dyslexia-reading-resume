@@ -52,6 +52,7 @@ One generated hero landscape explains the product metaphor: a single warm senten
 ### Provenance
 
 - `assets/src/reading-coordinate.png` and optimized derivatives: generated 2026-08-28 with the factory Azure image deployment (`factory-image`) using the prompt above. Original to Reading Resume; no third-party source material.
+- `site/public/images/reading-resume-social.jpg`: a 1200 × 630 crop composed from that original asset during the local build with Sharp. It supplies the social-card preview and adds no new source material.
 - `site/public/fonts/atkinson-hyperlegible-regular.ttf`: Atkinson Hyperlegible, Copyright 2020 Braille Institute of America, SIL Open Font License 1.1; source: Google Fonts repository.
 - Functional icons are original inline SVG paths authored for this product.
 

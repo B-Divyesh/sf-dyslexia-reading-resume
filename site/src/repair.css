@@ -1,6 +1,0 @@
-/* Keep the decorative hero inside the 390 px layout viewport. */
-@media (max-width: 640px) {
-  .hero-art {
-    width: 100%;
-  }
-}

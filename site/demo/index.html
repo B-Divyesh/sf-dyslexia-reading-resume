@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07151a" />
+    <meta name="description" content="Try Reading Resume with a saved sentence in a realistic sample article." />
+    <link rel="canonical" href="https://dyslexia-reading-resume.sociobot.in/demo/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Demo — Reading Resume" />
+    <meta property="og:description" content="Try Reading Resume with a saved sentence in a realistic sample article." />
+    <meta property="og:url" content="https://dyslexia-reading-resume.sociobot.in/demo/" />
+    <meta property="og:image" content="https://dyslexia-reading-resume.sociobot.in/images/reading-resume-social.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Demo — Reading Resume" />
+    <meta name="twitter:description" content="Try Reading Resume with a saved sentence in a realistic sample article." />
+    <meta name="twitter:image" content="https://dyslexia-reading-resume.sociobot.in/images/reading-resume-social.jpg" />
+    <title>Demo — Reading Resume</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/atkinson-hyperlegible-regular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="/src/site.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Reading Resume home"><span class="brand-mark" aria-hidden="true">⌁</span><span>Reading Resume</span></a>
+      <nav aria-label="Primary navigation"><a href="/">Home</a><a href="/#how">How it works</a><a href="/privacy/">Privacy</a><a class="nav-download" href="/downloads/reading-resume-chrome.zip" download>Download</a></nav>
+    </header>
+    <main id="main" class="demo-page">
+      <section class="demo-banner" aria-label="Demo mode"><p><strong>Demo — sample data, nothing is saved</strong><span>Your real saved places are not read or changed.</span></p><div><button id="reset-demo" type="button">Reset demo</button><a href="/">Start for real</a></div></section>
+      <section class="demo-intro" aria-labelledby="demo-title"><p class="eyebrow">Sample article</p><h1 id="demo-title">Return to a saved sentence</h1><p>Choose a sentence in this sample article. Save it, reload, and return to the same place.</p></section>
+      <section class="demo-workspace" aria-labelledby="article-title">
+        <article class="sample-article">
+          <p class="article-meta">Wednesday · 5 minute read</p>
+          <h2 id="article-title">Mira’s station notes</h2>
+          <p>The repair crew moved the platform sign before the first train arrived.</p>
+          <p>Mira checked the timetable twice because the weekday service changed without notice.</p>
+          <p>At 2:15, Mira stopped at the sentence about the train platform.</p>
+          <p>She wrote the platform number on a paper ticket before putting the timetable away.</p>
+          <p>The next train arrived on time, and the repaired sign showed the correct destination.</p>
+          <div class="sentence-picker" aria-label="Choose a sample sentence"><p>Choose the sentence to read:</p><div id="sentence-choices"></div></div>
+        </article>
+        <aside class="demo-strip" aria-label="Sample reading strip">
+          <div class="strip-meta"><strong id="demo-place-label">● Saved sample place</strong><span id="demo-count">Sentence 3 of 5</span></div>
+          <p id="demo-sentence">At 2:15, Mira stopped at the sentence about the train platform.</p>
+          <div class="strip-controls"><button id="demo-previous" type="button" aria-label="Previous sample sentence">←</button><button id="demo-read" type="button">▶ Read aloud</button><button id="demo-next" type="button" aria-label="Next sample sentence">→</button></div>
+          <div class="demo-actions"><button id="demo-save" type="button">Save this sentence</button><button id="demo-resume" type="button">Resume saved sentence</button></div>
+          <p id="demo-status" role="status" aria-live="polite">Sample place is ready.</p>
+        </aside>
+      </section>
+      <section class="demo-facts" aria-labelledby="demo-facts-title"><h2 id="demo-facts-title">What the free reader includes</h2><ul><li>Save and return to a sentence</li><li>Use the reading strip and browser read aloud</li><li>Export or clear saved places</li></ul><p>Optional reading-strip presets cost $12 once. No subscription.</p></section>
+    </main>
+    <footer class="site-footer"><div class="brand"><span class="brand-mark" aria-hidden="true">⌁</span><span>Reading Resume</span></div><p>Save a sentence and return to it later.</p><nav aria-label="Footer navigation"><a href="/demo/">Demo</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav><p class="factory-credit">Built by Param Factory · v1.0.0</p><p class="provenance">Hero artwork generated for Reading Resume with the factory image model.</p></footer>
+    <div id="offline" class="offline" role="status" hidden>You’re offline. The sample works after its first visit. Downloads and checkout need a connection.</div>
+    <script type="module" src="/src/site.ts"></script>
+  </body>
+</html>

@@ -1,8 +1,4 @@
 {
-  "navigationFallback": {
-    "rewrite": "/index.html",
-    "exclude": ["/assets/*", "/downloads/*", "/fonts/*", "/images/*", "/*.{css,js,png,jpg,svg,webp,avif,ico,woff,woff2,ttf,json,txt,xml,wasm,zip}"]
-  },
   "globalHeaders": {
     "Cache-Control": "public, max-age=0, must-revalidate",
     "Content-Security-Policy": "default-src 'self'; base-uri 'self'; connect-src 'self' https://api.sociobot.in; font-src 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self'",
@@ -17,7 +13,11 @@
     { "route": "/images/*", "headers": { "Cache-Control": "public, max-age=86400, must-revalidate" } },
     { "route": "/sw.js", "headers": { "Cache-Control": "no-cache" } }
   ],
+  "responseOverrides": {
+    "404": { "rewrite": "/404.html", "statusCode": 404 }
+  },
   "mimeTypes": {
-    ".zip": "application/zip"
+    ".zip": "application/zip",
+    ".avif": "image/avif"
   }
 }

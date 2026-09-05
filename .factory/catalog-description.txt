@@ -1,0 +1,1 @@
+Save an exact web sentence and return to it after an interruption.
