@@ -4,7 +4,7 @@
 - Work order: `dyslexia-reading-resume-repair-4`
 - Live URL: <https://dyslexia-reading-resume.sociobot.in/>
 - Implementation commit: `4e18c7f304c3701e6478911587eefab03a98d27c`
-- Documentation commit: recorded in the follow-up metadata commit after this handoff
+- Documentation commit: `72cdd0e56d6d7725ab2d866d4c72e27903f18ac8`
 - Deployment: Static Web App `sf-dyslexia-reading-resume`; existing production app reused; upload succeeded
 - Product verdict: **PASS** for the shipped site, extension, and all 23 public claims
 
