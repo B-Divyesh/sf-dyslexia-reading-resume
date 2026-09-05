@@ -1,4 +1,4 @@
-# Independent verification 4 — PASS
+# Save an exact web sentence — verification 4 PASS
 
 - Date: 2026-09-05
 - Work order: `dyslexia-reading-resume-verify-4`
