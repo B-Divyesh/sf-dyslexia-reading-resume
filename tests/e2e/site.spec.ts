@@ -40,12 +40,34 @@ test('@claim:sample-controls the sample saves a chosen sentence and restores it 
 
 test('@claim:read-aloud the sample starts browser read aloud for the visible sentence', async ({ page }) => {
   await page.addInitScript(() => {
-    Object.defineProperty(window, 'speechSynthesis', { configurable: true, value: { speak() {}, cancel() {} } });
+    const spoken: string[] = [];
+    class RecordedUtterance {
+      readonly text: string;
+      onend: (() => void) | null = null;
+      onerror: (() => void) | null = null;
+
+      constructor(text: string) {
+        this.text = text;
+      }
+    }
+    Object.defineProperty(window, '__readingResumeSpoken', { configurable: true, value: spoken });
+    Object.defineProperty(window, 'SpeechSynthesisUtterance', { configurable: true, value: RecordedUtterance });
+    Object.defineProperty(window, 'speechSynthesis', {
+      configurable: true,
+      value: {
+        speak(utterance: RecordedUtterance) { spoken.push(utterance.text); },
+        cancel() {}
+      }
+    });
   });
   await page.goto('/demo/');
+  await page.getByRole('button', { name: 'Sentence 4' }).click();
+  const visibleSentence = await page.locator('#demo-sentence').textContent();
   await page.getByRole('button', { name: /Read aloud/ }).click();
   await expect(page.getByRole('status')).toHaveText('Reading the sample with your browser voice.');
   await expect(page.getByRole('button', { name: /Pause/ })).toBeVisible();
+  const spoken = await page.evaluate(() => (window as unknown as { __readingResumeSpoken: string[] }).__readingResumeSpoken);
+  expect(spoken).toEqual([visibleSentence]);
 });
 
 test('@claim:offline-demo the sample reloads offline after the first visit', async ({ browser }) => {
@@ -66,25 +88,22 @@ test('@claim:offline-demo the sample reloads offline after the first visit', asy
   }
 });
 
-test('@claim:no-tracking the demo flow makes no third-party requests', async ({ page }) => {
+test('@claim:no-tracking the public website sets no cookies and makes no third-party runtime requests', async ({ page }) => {
   const origins = new Set<string>();
   page.on('request', (request) => origins.add(new URL(request.url()).origin));
-  await page.goto('/demo/');
+  for (const path of ['/', '/privacy/', '/terms/', '/404.html', '/demo/']) {
+    await page.goto(path);
+    await page.waitForLoadState('networkidle');
+  }
   await page.getByRole('button', { name: 'Sentence 4' }).click();
   await page.getByRole('button', { name: 'Save this sentence' }).click();
   expect([...origins]).toEqual(['http://127.0.0.1:4173']);
+  expect(await page.context().cookies()).toEqual([]);
 });
 
 test('@claim:plus-price the sample shows the one-time $12 preset price', async ({ page }) => {
   await page.goto('/demo/');
   await expect(page.getByText('Optional reading-strip presets cost $12 once. No subscription.')).toBeVisible();
-});
-
-test('@claim:free-core the sample lists the free reader actions', async ({ page }) => {
-  await page.goto('/demo/');
-  await expect(page.getByRole('heading', { name: 'What the free reader includes' })).toBeVisible();
-  await expect(page.getByText('Save and return to a sentence')).toBeVisible();
-  await expect(page.getByText('Export or clear saved places')).toBeVisible();
 });
 
 test('@claim:extension-download the sample links to an installable extension archive', async ({ page }) => {

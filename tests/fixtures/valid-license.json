@@ -1,0 +1,8 @@
+{
+  "license": "recorded-claim-fixture-not-a-credential",
+  "response": {
+    "valid": true,
+    "reason": "ok",
+    "expires_at": null
+  }
+}
