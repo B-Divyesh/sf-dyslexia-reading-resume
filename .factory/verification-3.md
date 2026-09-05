@@ -79,3 +79,6 @@ npm run test:e2e
 npm audit --omit=dev
 ```
 
+## Correction recorded 2026-09-05
+
+This historical PASS report was superseded by review 1. Its statement that the 390 CSS-pixel page had no horizontal overflow was false: review 1 measured a 429 px document width because the later mobile `.hero-art { width: 110% }` rule overrode the attempted repair. Its count of 19 matching ZIP payloads was also incorrect; the candidate and live archive each had 15 payloads. The repair implementation `ce19f6b1173bbdc57f816f4da2506c4df5746582` removes the losing repair stylesheet, checks a real 390 px layout viewport, and adds a real `/demo/`, required metadata, 404 response, and AVIF MIME configuration. This correction preserves the original verification record while preventing it from being used as current PASS evidence.
