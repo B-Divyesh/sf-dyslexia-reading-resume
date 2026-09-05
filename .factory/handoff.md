@@ -1,98 +1,99 @@
-# Reading Resume — repair handoff
-
-## Review 2
+# Reading Resume — repair 4 handoff
 
 - Date: 2026-09-05
-- Work order: `dyslexia-reading-resume-review-2`
-- Verdict: **FAIL** — 1 finding and 7 untested public claims.
-- Implementation reviewed: `ce19f6b1173bbdc57f816f4da2506c4df5746582`
-- Documentation revision reviewed: `7f56026a87f0ecee32e1a4f7355691d9a8c711e1`
-
-No product code changed. A fresh `npm ci`, `npm run check`, `npm run test:e2e` (54 tests), production audit, all 19 individual claim commands, live desktop/390 px flows, offline reload, accessibility checks, links, headers, 404, and ZIP payload comparison passed. The live site matches the implementation candidate.
-
-The strict review is nevertheless **FAIL** because `.factory/claims.json` does not fully cover all public statements. Seven claims are untested: no article-text transmission, normal local anchor/settings storage, the site-wide no-tracking/cookies statement, three Plus presets, normal free-extension offline use, visible-sentence read aloud, and free-core behavior. See `.factory/review-2.md` for exact evidence and required tests. Do not claim product PASS until those claim tests are added or the public statements are removed/narrowed.
-
-## Verification 4
-
-- Date: 2026-09-05
-- Work order: `dyslexia-reading-resume-verify-4`
-- Verdict: **PASS** — zero findings and zero untested public claims.
-- Implementation reviewed: `ce19f6b1173bbdc57f816f4da2506c4df5746582`
-- Documentation revision reviewed: `cdc19597c0f7e9977bd06170ff1b85f27ef5f3ba`
-
-Fresh desktop and 390 px phone browser checks confirmed the job, audience, and first action before scrolling. The live `/demo/` sample has a persistent isolation label, Reset demo, Start for real, realistic populated state, sentence save/reload/resume, and no change to a seeded real-data key. The clean candidate build, all 19 individual declared claim commands, and the full 54-test browser suite passed. Production dependencies have zero audit findings.
-
-Live route semantics, metadata, Axe serious/critical checks, keyboard focus, reduced motion, offline demo reload, ZIP payload identity, AVIF MIME, headers, legal pages, and designed HTTP 404 all passed. The intentional 404 network-console entry is expected. The prior selected-sentence, duplicate-occurrence, archive, clean-setup, mobile-overflow, blank-license, cache/header, demo, metadata/404, AVIF, and documentation-evidence findings are all resolved; see `.factory/verification-4.md` for evidence.
-
-No product code changed during verification. No known product gaps remain. The unrestricted audit retains 12 development-tool advisories, while `npm audit --omit=dev` is clean. A new Lighthouse score was not recorded because Lighthouse 13 could not attach to the preinstalled Chromium in this container; no public claim relies on that unavailable measurement.
-
-- Date: 2026-09-05
-- Work order: `dyslexia-reading-resume-repair-3`
-- Implementation commit: `ce19f6b1173bbdc57f816f4da2506c4df5746582`
-- Documentation correction commit: `24005d9f3e56bb29746c1fe51c36079617e4fe47`
-- Handoff documentation commit: `1bfa37798e260cdb5d1f67edc0953db32bf051c6`
+- Work order: `dyslexia-reading-resume-repair-4`
 - Live URL: <https://dyslexia-reading-resume.sociobot.in/>
-- Deployment: Static Web App `sf-dyslexia-reading-resume`, existing production app reused; upload succeeded.
-- Verdict: **PASS**
+- Implementation commit: `4e18c7f304c3701e6478911587eefab03a98d27c`
+- Documentation commit: recorded in the follow-up metadata commit after this handoff
+- Deployment: Static Web App `sf-dyslexia-reading-resume`; existing production app reused; upload succeeded
+- Product verdict: **PASS** for the shipped site, extension, and all 23 public claims
 
 ## Job, audience, and first action
 
-The job is to save one exact sentence in a difficult web article and return to it later. The audience is dyslexic web readers who lose their place after an interruption. The first action is **Try it with sample data**, which opens `/demo/` with a saved sentence already visible.
+The job is to save one exact sentence in a web article and return to it after an interruption. The audience is dyslexic web readers who lose their place in difficult reading. The first action is **Try it with sample data**. It opens `/demo/` with a saved sentence already visible.
 
 ## What changed
 
-- Added `/demo/`: a one-click, realistic station-note sample with a persistent **Demo — sample data, nothing is saved** banner, Reset demo, Start for real, sentence controls, save/resume, and browser read aloud.
-- Isolated website demo state under `demo:reading-resume:sample` and packaged-extension demo anchors under `demo:anchor:`. Resetting the page also removes the extension demo anchor; normal `anchor:` data is not read or changed.
-- Added `.factory/demo.md`, `.factory/claims.json`, and 19 observable claim-tagged Playwright checks. Every manifest command was run. Claims exercise the packaged MV3 extension on `/demo/` where appropriate.
-- Rewrote the first screen and product copy in plain words. Added `.factory/copy-audit.md` and a verb-first catalog description, copied to `/work/.evidence/catalog-description.txt`.
-- Fixed the 390 px overflow at its cause by replacing the losing `repair.css` cascade with a bounded responsive hero. The browser project now uses a true 390 CSS-pixel layout viewport.
-- Added announced blank-license recovery text and focus return.
-- Added canonical, Open Graph, Twitter, favicon, Apple-touch metadata; consistent header/footer/build ID; a designed `404.html`; `/demo/` sitemap entry; a 1200 × 630 social image derived from the product art; and an actual 404 response override.
-- Added the static-host `.avif → image/avif` MIME mapping. The release now serves AVIF as `image/avif`.
-- Preserved core extension behavior and added demo-scoped export/clear coverage.
+The product behavior and public copy remain unchanged. The incomplete claims contract found in review 2 is now complete:
 
-## Finding disposition
+- `article-text-private` runs the packaged extension on a normal article. It saves, resumes, and starts read aloud while proving those actions add no network requests and send no article sentence.
+- `local-browser-storage` saves a normal, non-demo anchor and changed reading settings. It verifies both records in local extension storage and confirms no demo namespace is used.
+- `no-tracking` now visits every public site route, records the full runtime request set through a demo save, and verifies that the site sets no cookies or third-party requests.
+- `plus-presets` uses a recorded valid-license response. It exposes exactly three presets, applies each one, checks every persisted setting, reloads, and confirms the last preset remains selected.
+- `offline-extension` takes a clean packaged extension offline on an already loaded article. Saving, resuming, moving, read aloud, and extension settings remain usable.
+- `read-aloud` now captures the utterance sent to the browser speech API and compares it with the sentence visible in the sample.
+- `free-core` starts with empty storage and no license. It performs save, resume, read aloud, reading-setting changes, and a real export, then confirms that no license appeared.
 
-| Review finding | Current disposition |
+`.factory/claims.json` now has 23 entries. Every ID appears on exactly one outcome-based browser test. The valid-license fixture is test-only and explicitly not a credential.
+
+## Review 2 finding disposition
+
+| Untested public statement | Current evidence |
 | --- | --- |
-| No isolated sample demo | Fixed: `/demo/`, persistent label, reset, separate namespaces, and documentation. |
-| Missing claims manifest/tests | Fixed: 19 declared claim checks and complete manifest-command run. |
-| Plain-words first screen/copy | Fixed: job, audience, first action, three facts, and copy audit. |
-| 390 px overflow | Fixed: live desktop and mobile `scrollWidth === clientWidth`. |
-| Blank web license restoration | Fixed: announced “Enter the license token from your receipt.” and focus recovery. |
-| Metadata, footer, and 404 | Fixed: route-specific metadata, consistent skeleton, HTTP 404 with return actions. |
-| AVIF MIME type | Fixed: live response is `image/avif`. |
-| False prior PASS evidence | Corrected in the documentation correction commit above. |
+| Article text is not sent to Reading Resume | `article-text-private` records the packaged extension’s requests across save, resume, and read aloud. No request is added by those actions. |
+| Normal anchors and settings stay in browser storage | `local-browser-storage` verifies a normal `anchor:` record and `readingSettings` in `chrome.storage.local`. |
+| Website has no analytics, trackers, cookies, or third-party runtime scripts | `no-tracking` covers `/`, `/demo/`, `/privacy/`, `/terms/`, and `/404.html`, then checks all request origins and cookies. |
+| Plus adds three saved presets | `plus-presets` verifies all three preset names, mappings, persistence, and reload behavior through a recorded license response. |
+| Free reader remains available offline | `offline-extension` exercises the installed package after the browser context goes offline. |
+| Read aloud starts with the visible sentence | `read-aloud` compares the captured speech utterance with the current visible sample sentence. |
+| Save, return, read aloud, controls, and export stay free | `free-core` performs all five outcomes in a clean profile with no license record. |
 
-The earlier selected-sentence, duplicate-sentence, clean-checkout, download ZIP, cache/update, and extension blank-license findings remain covered by regression checks and passed again.
+All earlier findings remain resolved: selected-sentence and duplicate-occurrence restoration, installable ZIP delivery, clean setup, cache versioning, 390 px overflow, blank-license recovery, isolated demo data, metadata, legal routes, the designed 404 response, AVIF MIME, security headers, and historical evidence correction.
 
-## Verification
+## Clean-checkout verification
 
-From a fresh clone of the implementation commit:
+A separate clone of implementation commit `4e18c7f304c3701e6478911587eefab03a98d27c` was installed with only `npm ci`.
 
 ```sh
 npm ci
-npm run check          # TypeScript, 10 Vitest tests, extension/site build
-npm run test:e2e       # 54 total; expected mobile skips cover extension-only flows
-npm audit --omit=dev   # 0 production vulnerabilities
+npm run check
+npm run test:e2e
+npm audit --omit=dev --json
 ```
 
-All 19 exact commands in `.factory/claims.json` passed. The complete tagged suite also passed with `npm run test:claims`.
+Results:
 
-Accessibility and browser checks:
+- TypeScript passed.
+- Vitest: 10 passed.
+- Production build passed and produced `dist/site/`, the unpacked MV3 extension, and the install ZIP.
+- Playwright: 49 passed and 13 expected mobile skips across 62 project cases.
+- Every one of the 23 exact commands in `.factory/claims.json` passed separately from that clone.
+- The aggregate `npm run test:claims` run passed: 33 passed and 13 expected mobile skips.
+- Production dependency audit: zero vulnerabilities. The unrestricted development audit still reports 12 toolchain advisories.
 
-- Local and live Playwright Axe scans: zero serious/critical findings on `/`, `/demo/`, `/privacy/`, `/terms/`, and `/404.html`.
-- Fresh live desktop and 390 × 844 phone contexts: one H1 and main landmark on each route; no valid-route console errors; visible demo banner; real state unchanged by the demo; no horizontal overflow; same-origin-only demo traffic.
-- Live `/does-not-exist` returns the intentional HTTP 404 and the designed route. The resulting network console entry is expected, not a page defect.
-- Live download is `application/zip`; all 15 unzipped payloads byte-match the local packaged extension.
-- Live AVIF response: `image/avif`.
-- Local Lighthouse against `/demo/`: Performance 100, Accessibility 100, FCP 1.0 s, LCP 1.4 s, TBT 0 ms, CLS 0.
-- Budgets: initial JS 6.09 kB, CSS 14.75 kB, local font 54.35 kB, mobile AVIF 10.53 kB, social image 67.15 kB, and unpacked extension 43.99 kB.
+Build sizes remain inside the product budgets: initial JavaScript 6.09 kB, CSS 14.75 kB, local font 54.35 kB, mobile AVIF 10.53 kB, social image 67.15 kB, and unpacked extension 43.99 kB.
 
-## Known gaps
+## Live verification after deployment
 
-There are no known product blockers. `npm audit` without `--omit=dev` still reports 12 development-tool advisories; the production-only audit is clean. The normal free reader does not depend on the optional license or external billing service.
+- The factory `verify-url.sh` check passed with HTTP 200, correct title and language, one H1, a main landmark, complete image alt attributes, named buttons, and no console errors.
+- Fresh desktop and 390 × 844 phone contexts show the job, audience, and sample action before scrolling. Both have no horizontal overflow.
+- The demo starts with a realistic five-sentence station note and the persistent **Demo — sample data, nothing is saved** label. Saving sentence 5, reloading, choosing sentence 1, and resuming returns sentence 5. Reset restores sentence 3. A seeded real-data key remains unchanged.
+- The demo reloads offline after service-worker control is established.
+- Fresh Axe scans on `/`, `/demo/`, `/privacy/`, `/terms/`, and the not-found page report zero serious or critical findings.
+- The first Tab focuses the visible skip link with a 3 px teal outline; Enter moves to `#main`. Reduced motion changes animation and transition duration to `0.01ms` and uses automatic scrolling.
+- `/does-not-exist` deliberately returns HTTP 404 with the designed title, one H1, main landmark, and a route back. The 404 is expected.
+- Live HTML and service-worker SHA-256 values match the local deployment artifact. The live ZIP returns `application/zip`; its 15 files match the local packaged extension byte-for-byte. AVIF returns `image/avif`.
+- CSP, HSTS, `nosniff`, strict referrer policy, frame denial, and Permissions-Policy are present.
+- Live Lighthouse on `/demo/`: Performance 100, Accessibility 100, FCP 0.9 s, LCP 1.1 s, TBT 10 ms, CLS 0.
 
-## Next steps
+## Billing status
 
-Store distribution remains the only external dependency. The published ZIP can be installed now; submit the same MV3 package to browser stores when product registration is available.
+Reading Resume Plus remains a $12 one-time purchase for three reading-strip presets. The free reader remains fully usable. The owned checkout endpoint currently returns HTTP 404 because the product is not yet enabled in the billing service. This is an external registration dependency, not a local product failure. Exact public offer metadata is in `/work/.evidence/billing-offer.json` for the separate billing operator. No paid feature was removed or made free.
+
+## Evidence
+
+- `/work/.evidence/repair-4-live-browser.json`
+- `/work/.evidence/repair-4-live-desktop.png`
+- `/work/.evidence/repair-4-live-phone.png`
+- `/work/.evidence/repair-4-lighthouse.json`
+- `/work/.evidence/verify.json`
+- `/work/.evidence/catalog-description.txt`
+- `/work/.evidence/billing-offer.json`
+
+## Known gaps and next steps
+
+- The billing operator must enable `dyslexia-reading-resume` before the hosted checkout link can sell Plus.
+- Browser-store submission remains external. The downloadable MV3 ZIP is ready for installation now.
+- The 12 development-only dependency advisories remain. The shipped static product has zero production dependency findings.
+
+This product has no backend, shared database, tenant, health endpoint, or server-side rate-limit claim. All product state remains in browser storage.
